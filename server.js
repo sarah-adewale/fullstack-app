@@ -1,9 +1,9 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const MongoClient = require('mongobd').MongoClient
+const MongoClient = require('mongodb').MongoClient
 require('dotenv').config()
-const PORT = 2000
+
 
 app.use(cors())
 
@@ -20,4 +20,8 @@ MongoClient.connect(dbConnectionString)
         console.log('connected to database')
         db = client.db(dbName)
         collection = db.collection('fullstack-app-obj')
+    })
+
+    app.listen(process.env.PORT || PORT, () => {
+        console.log(`your server is running on port`)
     })
