@@ -5,11 +5,6 @@ const MongoClient = require('mongodb').MongoClient
 require('dotenv').config()
 
 
-app.use(cors())
-
-
-
-
 let db,
     dbConnectionString = process.env.DB_STRING, //
     dbName = 'fullstack-app',
@@ -22,6 +17,15 @@ MongoClient.connect(dbConnectionString)
         collection = db.collection('fullstack-app-obj')
     })
 
-    app.listen(process.env.PORT || PORT, () => {
-        console.log(`your server is running on port`)
-    })
+
+//middleware
+app.set('view engine', 'ejs') //use ejs template in view engine folder
+app.use(express.static('public')) //simply use files in public folder
+app.use(express.urlencoded({extended: true})) //add url
+app.use(express.json()) //parse json. read data that's being send back and forth
+app.use(cors())
+
+
+app.listen(process.env.PORT || PORT, () => {
+    console.log(`your server is running on port`)
+})
