@@ -6,7 +6,7 @@ require('dotenv').config()
 
 
 let db,
-    dbConnectionString = process.env.DB_STRING, //
+    dbConnectionString = process.env.DB_STRING, //connecting database thru .env
     dbName = 'fullstack-app',
     collection 
 
@@ -24,6 +24,15 @@ app.use(express.static('public')) //simply use files in public folder
 app.use(express.urlencoded({extended: true})) //add url
 app.use(express.json()) //parse json. read data that's being send back and forth
 app.use(cors())
+
+app.get('/', async(request, response) =>{ //homepage
+    try{
+        response.render('index.ejs')
+    }catch(error){
+        response.status(500).send({message: error.message})
+    }
+})
+
 
 
 app.listen(process.env.PORT || PORT, () => {
